@@ -1,0 +1,13 @@
+{
+  "data": "Terça-Feira, 25/02/2025",
+  "bancas": {
+    "Banca Exemplo 1": [
+      { "horário": "11:00", "resultado": "1234 - 56 - 78 - 90" },
+      { "horário": "14:00", "resultado": "2345 - 67 - 89 - 01" }
+    ],
+    "Banca Exemplo 2": [
+      { "horário": "12:00", "resultado": "3456 - 78 - 90 - 12" },
+      { "horário": "15:00", "resultado": "4567 - 89 - 01 - 23" }
+    ]
+  }
+}
