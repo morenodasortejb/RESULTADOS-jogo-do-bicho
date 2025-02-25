@@ -1,0 +1,32 @@
+name: Atualizar Resultados do Jogo do Bicho
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Roda a cada 10 minutos
+  workflow_dispatch:  # Permite rodar manualmente
+
+jobs:
+  scrape_results:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Instalar dependências
+        run: pip install requests beautifulsoup4
+
+      - name: Rodar script de extração
+        run: python extrair_resultados.py
+
+      - name: Commit e Push dos resultados
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add resultados.json
+          git commit -m "Atualização automática dos resultados" || echo "Nenhuma mudança para commitar"
+          git push
