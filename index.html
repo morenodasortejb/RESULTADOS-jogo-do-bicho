@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESULTADOS DO JOGO DO BICHO 🍀</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(to right, #4A00E0, #8E2DE2); color: white; text-align: center; padding: 20px; }
+        h1 { font-size: 24px; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; background: white; color: black; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 10px; border: 1px solid black; }
+        th { background: #4A00E0; color: white; }
+    </style>
+</head>
+<body>
+    <h1>RESULTADOS DO DIA 🍀</h1>
+    <h2 id="data"></h2>
+    <div id="resultados"></div>
+
+    <script>
+        async function carregarResultados() {
+            try {
+                const response = await fetch('resultados.json');
+                const dados = await response.json();
+
+                document.getElementById('data').innerText = "📅 " + dados.data;
+                let html = "";
+
+                for (let banca in dados.bancas) {
+                    html += `<h2>${banca}</h2>`;
+                    html += "<table><tr><th>Horário</th><th>Resultado</th></tr>";
+                    dados.bancas[banca].forEach(item => {
+                        html += `<tr><td>${item.horário}</td><td>${item.resultado}</td></tr>`;
+                    });
+                    html += "</table>";
+                }
+
+                document.getElementById('resultados').innerHTML = html;
+            } catch (error) {
+                document.getElementById('resultados').innerText = "Erro ao carregar os resultados.";
+            }
+        }
+
+        carregarResultados();
+    </script>
+</body>
+</html>
